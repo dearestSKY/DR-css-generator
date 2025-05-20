@@ -2,6 +2,90 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
+  <title>비밀번호 보호 페이지</title>
+<style>
+  #lock-screen {
+    position: fixed;
+    inset: 0;
+    background: #2c3e50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #ecf0f1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  #lock-screen h1 {
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 28px;
+  }
+  #password-input {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    width: 220px;
+    box-sizing: border-box;
+  }
+  #submit-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #submit-btn:hover {
+    background-color: #2980b9;
+  }
+  #error-msg {
+    margin-top: 12px;
+    color: #e74c3c;
+    font-weight: 500;
+    height: 20px;
+  }
+</style>
+
+<div id="lock-screen">
+  <h1>비밀번호를 입력하세요</h1>
+  <input id="password-input" type="password" placeholder="비밀번호" />
+  <button id="submit-btn">입력</button>
+  <div id="error-msg"></div>
+</div>
+
+<script>
+  const LOCK_PASSWORD = 'sunset#528491';  // 원하는 비밀번호로 바꾸기
+  const lockScreen = document.getElementById('lock-screen');
+  const passwordInput = document.getElementById('password-input');
+  const submitBtn = document.getElementById('submit-btn');
+  const errorMsg = document.getElementById('error-msg');
+
+  function checkPassword() {
+    if (passwordInput.value === LOCK_PASSWORD) {
+      lockScreen.style.display = 'none';
+    } else {
+      errorMsg.textContent = '비밀번호가 틀렸습니다.';
+      passwordInput.value = '';
+      passwordInput.focus();
+    }
+  }
+
+  submitBtn.addEventListener('click', checkPassword);
+  passwordInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  passwordInput.focus();
+</script>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
   <title>롤20 CSS 스킬 코드 생성기</title>
   <style>
   body {
