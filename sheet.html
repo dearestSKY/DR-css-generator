@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>디알 매크로 생성기: 의식 시트</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+      background: #f9f9f9;
+    }
+    h2 {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 0px;
+    }
+    h3 {
+      font-size: 22px;
+      margin-top: 0px;
+      margin-bottom: 25px;
+    }
+
+.subtitle {
+  font-size: 22px;
+  text-align: center;
+  margin-top: 4px;
+  margin-bottom: 25px;
+  color: #555;
+  font-weight: normal;
+  font-family: Arial, sans-serif;
+}
+
+    #scenarioNameText {
+      display: inline-block;
+      min-width: 150px;
+      max-width: 100%;
+      padding: 2px 4px;
+      margin-left: 6px;
+      border-bottom: 1px dashed #aaa;
+      outline: none;
+      white-space: nowrap;
+      overflow: hidden;
+      line-height: 1.4;
+      font-size: 24px;
+      vertical-align: bottom;
+    }
+    #scenarioNameText.empty::before {
+      content: '의식명을 입력하세요.';
+      color: #aaa;
+    }
+
+    /* 표 스타일 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 12px;
+      background-color: #fff;
+      color: #000;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 6px;
+      text-align: center;
+      font-family: monospace;
+      vertical-align: middle;
+    }
+    th {
+      background: #eee;
+    }
+    td[contenteditable="true"] {
+      background-color: #fff;
+      cursor: text;
+      color: #000;
+    }
+    td.stepCell {
+      background-color: #f0f0f0;
+      color: #000;
+    }
+
+    /* 블랙 테이블 */
+    table.dark-table {
+      background-color: #000;
+      color: #fff;
+    }
+    table.dark-table th, table.dark-table td {
+      border: 1px solid #444;
+    }
+    table.dark-table th {
+      background: #222;
+    }
+    table.dark-table td[contenteditable="true"] {
+      background-color: #111;
+      color: #fff;
+    }
+    table.dark-table td.stepCell {
+      background-color: #222;
+      color: #fff;
+    }
+
+    /* 레드 테이블 */
+    table.red-table {
+      background-color: #600;
+      color: #fff;
+    }
+    table.red-table th, table.red-table td {
+      border: 1px solid #a33;
+    }
+    table.red-table th {
+      background: #800;
+    }
+    table.red-table td[contenteditable="true"] {
+      background-color: #700;
+      color: #fff;
+    }
+    table.red-table td.stepCell {
+      background-color: #800;
+      color: #fff;
+    }
+
+    /* 버튼 기본 스타일 */
+    button {
+      padding: 6px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      margin-left: 6px;
+    }
+    button:hover {
+      opacity: 0.85;
+    }
+
+    /* 개별 버튼 색상 */
+    #whiteBtn {
+      background-color: #ecf0f1;
+      color: #333;
+      border: 1px solid #ccc;
+    }
+    #whiteBtn:hover {
+      background-color: #d0d7db;
+    }
+
+    #blackBtn {
+      background-color: #2c3e50;
+      color: white;
+      border: 1px solid #1a252f;
+    }
+    #blackBtn:hover {
+      background-color: #1a252f;
+    }
+
+    #redBtn {
+      background-color: #c0392b;
+      color: white;
+      border: 1px solid #7a1d16;
+    }
+    #redBtn:hover {
+      background-color: #7a1d16;
+    }
+
+    #addRowBtn, #removeRowBtn {
+      background-color: #3498db;
+      color: white;
+      border: 1px solid #2980b9;
+    }
+    #addRowBtn:hover, #removeRowBtn:hover {
+      background-color: #2980b9;
+    }
+
+    #copyBtn {
+      background-color: #2ecc71;
+      margin-left: auto;
+      padding: 6px 10px;
+      font-size: 13px;
+      border: 1px solid #27ae60;
+      color: white;
+    }
+    #copyBtn:hover {
+      background-color: #27ae60;
+    }
+
+    .button-group {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+  #copyTarget > .title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 0;
+  padding: 4px 8px 2px 8px; /* 위쪽 4px, 아래쪽 2px로 조절 */
+  background-color: #000;
+  color: #eee;
+}
+
+#copyTarget > .subtitle {
+  font-size: 22px;
+  font-weight: normal;
+  text-align: right;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 2px 8px 4px 8px; /* 위쪽 2px, 아래쪽 4px로 조절 */
+  background-color: #000;
+  color: #eee;
+}
+
+
+    #mainTable {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+
+
+<h2>디알 매크로 생성기</h2>
+<div class="subtitle">의식 시트 제작</div>
+  <div style="overflow-x:auto;" id="copyTarget">
+    <div class="title">의식 시트</div>
+    <div class="subtitle">
+      <strong>의식명:</strong>
+      <span id="scenarioNameText" class="empty" contenteditable="true"></span>
+    </div>
+
+    <table id="mainTable">
+      <thead>
+        <tr>
+          <th>단계</th>
+          <th>절차의 이름</th>
+          <th>지정 특기</th>
+          <th>참가조건</th>
+          <th>패널티</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="stepCell"></td>
+          <td contenteditable="true"></td>
+          <td contenteditable="true"></td>
+          <td contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="stepCell"></td>
+          <td contenteditable="true"></td>
+          <td contenteditable="true"></td>
+          <td contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="stepCell"></td>
+          <td contenteditable="true"></td>
+          <td contenteditable="true"></td>
+          <td contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="button-group">
+    <button id="addRowBtn" type="button">행 추가</button>
+    <button id="removeRowBtn" type="button">행 삭제</button>
+    <button id="whiteBtn" type="button">화이트</button>
+    <button id="blackBtn" type="button">블랙</button>
+    <button id="redBtn" type="button">레드</button>
+    <button id="copyBtn" type="button">복사</button>
+  </div>
+
+  <script>
+    const table = document.getElementById('mainTable');
+    const tbody = table.querySelector('tbody');
+    const copyBtn = document.getElementById('copyBtn');
+    const addRowBtn = document.getElementById('addRowBtn');
+    const removeRowBtn = document.getElementById('removeRowBtn');
+    const scenarioNameText = document.getElementById('scenarioNameText');
+
+    const whiteBtn = document.getElementById('whiteBtn');
+    const blackBtn = document.getElementById('blackBtn');
+    const redBtn = document.getElementById('redBtn');
+
+    function updateStepNumbers() {
+      const rows = tbody.querySelectorAll('tr');
+      rows.forEach((row, i) => {
+        row.querySelector('.stepCell').textContent = i + 1;
+      });
+    }
+
+    addRowBtn.addEventListener('click', () => {
+      const colCount = table.tHead.rows[0].cells.length;
+      const newRow = document.createElement('tr');
+      for (let i = 0; i < colCount; i++) {
+        const td = document.createElement('td');
+        if (i === 0) {
+          td.classList.add('stepCell');
+        } else {
+          td.contentEditable = "true";
+        }
+        newRow.appendChild(td);
+      }
+      tbody.appendChild(newRow);
+      updateStepNumbers();
+    });
+
+    removeRowBtn.addEventListener('click', () => {
+      const rows = tbody.querySelectorAll('tr');
+      if (rows.length > 1) {
+        tbody.removeChild(rows[rows.length - 1]);
+        updateStepNumbers();
+      }
+    });
+
+    function setTableColor(colorClass) {
+      table.classList.remove('dark-table', 'red-table');
+      if (colorClass) {
+        table.classList.add(colorClass);
+      }
+    }
+
+    whiteBtn.addEventListener('click', () => setTableColor(null));
+    blackBtn.addEventListener('click', () => setTableColor('dark-table'));
+    redBtn.addEventListener('click', () => setTableColor('red-table'));
+
+    copyBtn.addEventListener('click', () => {
+      const copyTarget = document.getElementById('copyTarget');
+      const range = document.createRange();
+      range.selectNode(copyTarget);
+
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      try {
+        const successful = document.execCommand('copy');
+        alert(successful ? '표 내용을 클립보드에 복사했습니다!' : '복사에 실패했습니다.');
+      } catch (err) {
+        alert('복사 도중 오류가 발생했습니다.');
+      }
+
+      selection.removeAllRanges();
+    });
+
+    function updateScenarioPlaceholder() {
+      const text = scenarioNameText.textContent.trim();
+      scenarioNameText.classList.toggle('empty', text === '');
+    }
+
+    scenarioNameText.addEventListener('input', updateScenarioPlaceholder);
+    updateScenarioPlaceholder();
+
+    updateStepNumbers();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>디알 매크로 생성기: 스킬</title>
+  <style>
+    h2 {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 0px;
+    }
+
+    h3 {
+      font-size: 22px;
+      margin-top: 0px;
+      margin-bottom: 25px;
+    }
+
+.subtitle {
+  font-size: 22px;
+  text-align: center;
+  margin-top: 4px;
+  margin-bottom: 25px;
+  color: #555;
+  font-weight: normal;
+  font-family: Arial, sans-serif;
+}
+
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 1100px;
+    margin: auto;
+    background: #f9f9f9;
+  }
+  .container {
+    display: flex;
+    gap: 20px;
+  }
+  .section {
+    flex: 1 1 33%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 20px;
+  }
+  label {
+    display: inline-block;
+    width: 115px;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  input[type=text], textarea {
+    width: 100%;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    font-family: monospace;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  input[type=text]:focus, textarea:focus {
+    outline: none;
+    border-color: #35bdf8;
+    background: #f0f8ff;
+  }
+  textarea {
+    resize: vertical;
+    height: 80px;
+  }
+  #result, #preview {
+    flex-grow: 1;
+    overflow-y: auto;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    min-height: 400px;
+    padding: 15px;
+    white-space: pre-wrap;
+    font-family: monospace;
+  }
+  #preview {
+    display: inline-block;
+    max-width: 100%;
+    white-space: pre-wrap;
+    word-break: normal;
+    overflow-wrap: normal;
+    font-family: Georgia, serif;
+    border: 1px solid #ccc;
+    overflow-y: auto;
+  }
+  button#copyBtn {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    font-size: 15px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+  button#copyBtn:hover {
+    background-color: #2980b9;
+  }
+
+  .inputs-wrapper {
+    overflow-y: auto;
+    max-height: 450px;
+    padding-right: 8px;
+  }
+  /* 반응형 (폭 좁아지면 세로 배치) */
+  @media (max-width: 960px) {
+    .container {
+      flex-direction: column;
+    }
+    .section {
+      min-width: auto;
+      width: 100%;
+    }
+    #result, #preview {
+      min-height: 300px;
+    }
+  }
+  </style>
+</head>
+<body>
+
+  <h2>디알 매크로 생성기</h2>
+<div class="subtitle">스킬</div>
+
+  <div class="container">
+    <!-- 입력창 -->
+    <div class="section">
+      <h3>입력창</h3>
+      <div class="inputs-wrapper">
+        <label for="color1">선/이름/스킬설명</label>
+        <input type="color" id="color1" value="#35bdf8" style="vertical-align: middle; width:40px; border:none; padding:0;">
+        <input type="text" id="color1_text" value="#35bdf8" maxlength="7" style="width:80px; font-family: monospace; margin-left: 8px;">
+
+        <label for="color2">코드네임/대상/사정</label>
+        <input type="color" id="color2" value="#315f7c" style="vertical-align: middle; width:40px; border:none; padding:0;">
+        <input type="text" id="color2_text" value="#315f7c" maxlength="7" style="width:80px; font-family: monospace; margin-left: 8px;">
+
+        <label for="color3">블록 전체</label>
+        <input type="color" id="color3" value="#ffffff" style="vertical-align: middle; width:40px; border:none; padding:0;">
+        <input type="text" id="color3_text" value="#ffffff" maxlength="7" style="width:80px; font-family: monospace; margin-left: 8px;">
+        <div style="font-size:12px; color:#666; margin-bottom:12px;">
+          블록 전체색상은 흰색(#ffffff)이 가장 깔끔해요!
+        </div>
+
+        <label for="color4">그라데이션 1</label>
+        <input type="color" id="color4" value="#35bdf8" style="vertical-align: middle; width:40px; border:none; padding:0;">
+        <input type="text" id="color4_text" value="#35bdf8" maxlength="7" style="width:80px; font-family: monospace; margin-left: 8px;">
+
+<label for="gradPercent1">퍼센트</label>
+<input type="range" id="gradPercent1" min="0" max="100" value="30">
+<span id="gradPercent1Value">30%</span>
+
+        <label for="color5">그라데이션 2</label>
+        <input type="color" id="color5" value="#ff6666" style="vertical-align: middle; width:40px; border:none; padding:0;">
+        <input type="text" id="color5_text" value="#ff6666" maxlength="7" style="width:80px; font-family: monospace; margin-left: 8px;">
+
+<label for="gradPercent2">퍼센트 2</label>
+<input type="range" id="gradPercent2" min="0" max="100" value="70">
+<span id="gradPercent2Value">70%</span>
+
+        <label for="codename">코드네임</label>
+        <input type="text" id="codename" placeholder="코드네임 입력" />
+
+        <label for="name">이름</label>
+        <input type="text" id="name" placeholder="이름 입력" />
+
+        <label for="skillname">스킬명</label>
+        <input type="text" id="skillname" placeholder="스킬명 입력" />
+
+        <label for="target">대상</label>
+        <input type="text" id="target" placeholder="대상 입력" />
+
+        <label for="range">사정</label>
+        <input type="text" id="range" placeholder="사정 입력" />
+
+        <label for="description">스킬설명</label>
+        <textarea id="description" placeholder="스킬설명 입력"></textarea>
+      </div>
+    </div>
+
+    <!-- 실시간 미리보기 -->
+    <div class="section">
+      <h3>실시간 미리보기</h3>
+      <div id="preview"></div>
+    </div>
+
+    <!-- 생성 코드 -->
+    <div class="section">
+      <h3>스킬 CSS</h3>
+      <button id="copyBtn">코드 복사</button>
+      <pre id="result"></pre>
+    </div>
+  </div>
+
+  <script>
+    const inputs = [
+      'codename', 'name', 'skillname', 'target', 'range', 'description'
+    ];
+
+    const color1Picker = document.getElementById('color1');
+    const color1Text = document.getElementById('color1_text');
+    const color2Picker = document.getElementById('color2');
+    const color2Text = document.getElementById('color2_text');
+    const color3Picker = document.getElementById('color3');
+    const color3Text = document.getElementById('color3_text');
+    const color4Picker = document.getElementById('color4');
+    const color4Text = document.getElementById('color4_text');
+    const color5Picker = document.getElementById('color5');
+    const color5Text = document.getElementById('color5_text');
+const gradPercent1Input = document.getElementById('gradPercent1');
+const gradPercent2Input = document.getElementById('gradPercent2');
+    function generateTemplate() {
+      const color1 = color1Picker.value.trim() || '#000';
+      const color2 = color2Picker.value.trim() || '#000';
+      const color3 = color3Picker.value.trim() || '#fff';
+      const color4 = color4Picker.value.trim() || '#35bdf8';
+      const color5 = color5Picker.value.trim() || '#ff6666';
+
+      const codename = document.getElementById('codename').value.trim() || '코드네임';
+      const name = document.getElementById('name').value.trim() || '이름';
+      const skillname = document.getElementById('skillname').value.trim() || '스킬명';
+      const target = document.getElementById('target').value.trim() || '대상';
+      const range = document.getElementById('range').value.trim() || '사정';
+      const description = document.getElementById('description').value.trim() || '스킬설명';
+const gradPercent1 = parseInt(gradPercent1Input.value) || 0;
+const gradPercent2 = parseInt(gradPercent2Input.value) || 0;
+
+const skillGradient = `linear-gradient(135deg, ${color4} ${gradPercent1}%, ${color5} ${gradPercent2}%)`;
+
+gradPercent1Input.addEventListener('input', generateTemplate);
+gradPercent2Input.addEventListener('input', generateTemplate);
+
+      // 생성된 CSS에 세 번째 색상 적용 (배경색), 스킬명 배경에 그라데이션 적용
+      const template =
+`[✧✦ SKILL ✦✧](#" style="text-decoration:none; display:block; padding:18px 15px; font-size:17px; font-weight:bold; text-align:center; color:${color1}; background:${color3}; border:3px double ${color1}; font-family: 'Georgia', serif;)[₊˚⊹${codename}⊹⁠˚₊](#" style="text-decoration:none; display:block; padding:10px 15px 0 15px; font-size:10px; font-weight:normal; color:${color2}; background:${color3}; border-left:1px solid ${color1}; border-right:1px solid ${color1}; font-family: 'Georgia', serif; text-align:center;)[${name}](#" style="text-decoration:none; display:block; padding:2px 15px 10px 15px; font-size:13px; font-weight:bold; color:${color1}; background:${color3}; border-left:1px solid ${color1}; border-right:1px solid ${color1}; font-family: 'Georgia', serif; text-align:center;)[•───⋅☾ ${skillname} ☽⋅───•](#" style="text-decoration:none; display:block; padding:15px 15px; font-size:15px; font-weight:bold; color:#fff; font-family: 'Georgia', serif; text-align:center; background-image: linear-gradient(135deg, ${color4} ${gradPercent1}%, ${color5} ${gradPercent2}% )[➤ 대상: ${target} | 사정: ${range}](#" style="text-decoration:none; display:block; padding:11px 15px; font-size:11px; color:${color2}; background:${color3}; border-left:1px solid ${color1}; border-right:1px solid ${color1}; font-family: 'Georgia', serif; text-align:center; border-top:none; border-bottom:none;)[“${description}”](#" style="text-decoration:none; display:block; padding:18px 18px; font-size:13px; color:${color1}; background:${color3}; border:3px solid ${color1}; border-top:1px solid ${color1}; border-left:10px solid ${color1}; font-family: 'Georgia', serif; line-height:1.5; text-align: justify;)`;
+
+      document.getElementById('result').textContent = template;
+
+      // 미리보기에도 그라데이션 적용
+      const previewHTML =
+`<a href="#" style="text-decoration:none; display:block; padding:18px 15px; font-size:17px; font-weight:bold; text-align:center; color:${color1}; background:${color3}; border:3px double ${color1}; font-family: 'Georgia', serif;">✧✦ SKILL ✦✧</a><a href="#" style="text-decoration:none; display:block; padding:10px 15px 0 15px; font-size:10px; font-weight:normal; color:${color2}; background:${color3}; border-left:1px solid ${color1}; border-right:1px solid ${color1}; font-family: 'Georgia', serif; text-align:center;">₊˚⊹${codename}⊹⁠˚₊</a><a href="#" style="text-decoration:none; display:block; padding:2px 15px 10px 15px; font-size:13px; font-weight:bold; color:${color1}; background:${color3}; border-left:1px solid ${color1}; border-right:1px solid ${color1}; font-family: 'Georgia', serif; text-align:center;">${name}</a><a href="#" style="text-decoration:none; display:block; padding:15px 15px; font-size:15px; font-weight:bold; color:#fff; background:${skillGradient}; font-family: 'Georgia', serif; text-align:center;">•───⋅☾ ${skillname} ☽⋅───•</a><a href="#" style="text-decoration:none; display:block; padding:11px 15px; font-size:11px; color:${color2}; background:${color3}; border-left:1px solid ${color1}; border-right:1px solid ${color1}; font-family: 'Georgia', serif; text-align:center; border-top:none; border-bottom:none;">➤ 대상: ${target} | 사정: ${range}</a><a href="#" style="text-decoration:none; display:block; padding:18px 18px; font-size:13px; color:${color1}; background:${color3}; border:3px solid ${color1}; border-top:1px solid ${color1}; border-left:10px solid ${color1}; font-family: 'Georgia', serif; line-height:1.5; text-align: justify;">“${description}”</a>`;
+      document.getElementById('preview').innerHTML = previewHTML;
+    }
+
+    function syncColorInputs(picker, text) {
+      picker.addEventListener('input', () => {
+        text.value = picker.value;
+        generateTemplate();
+      });
+      text.addEventListener('input', () => {
+        // 16진수 색상 형식 체크 (# + 6자리)
+        const val = text.value.trim();
+        if(/^#([0-9a-fA-F]{6})$/.test(val)){
+          picker.value = val;
+          generateTemplate();
+        }
+      });
+    }
+
+    [color1Picker, color2Picker, color3Picker, color4Picker, color5Picker].forEach((picker, idx) => {
+      const textInput = [color1Text, color2Text, color3Text, color4Text, color5Text][idx];
+      syncColorInputs(picker, textInput);
+    });
+
+    inputs.forEach(id => {
+      document.getElementById(id).addEventListener('input', generateTemplate);
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', () => {
+      const text = document.getElementById('result').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('코드가 복사되었습니다!');
+      });
+    });
+
+    generateTemplate();
+  </script>
+</body>
+</html>

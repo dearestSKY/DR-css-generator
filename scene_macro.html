@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>디알 매크로 생성기: 장면 열기/닫기</title>
+  <style>
+    h2 {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 0px;
+    }
+
+    h3 {
+      font-size: 22px;
+      margin-top: 0px;
+      margin-bottom: 25px;
+    }
+
+.subtitle {
+  font-size: 22px;
+  text-align: center;
+  margin-top: 4px;
+  margin-bottom: 25px;
+  color: #555;
+  font-weight: normal;
+  font-family: Arial, sans-serif;
+}
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 1100px;
+      margin: auto;
+      background: #f9f9f9;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+    }
+    .section {
+      flex: 1 1 33%;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    label {
+      display: inline-block;
+      width: 120px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    input[type=text], textarea {
+      width: 100%;
+      padding: 6px 8px;
+      box-sizing: border-box;
+      font-family: monospace;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color 0.2s ease;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+    input[type=text]:focus, textarea:focus {
+      outline: none;
+      border-color: #3498db;
+      background: #f0f8ff;
+    }
+    textarea {
+      resize: vertical;
+      height: 80px;
+    }
+    #result, #result2, #preview {
+  flex-grow: 1;
+  overflow-y: auto;      /* 내부 스크롤 */
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  height: 200px;          /* 높이를 고정해서 줄임 */
+  padding: 15px;
+  white-space: pre-wrap;  /* 줄바꿈 유지 */
+  font-family: monospace;
+}
+    #preview {
+      font-family: Georgia, serif;
+      white-space: pre-wrap;
+      word-break: normal;
+      overflow-wrap: normal;
+      border: 1px solid #ccc;
+      overflow-y: auto;
+    }
+    button#copyBtn {
+      margin-bottom: 15px;
+      padding: 10px 15px;
+      font-size: 15px;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    button#copyBtn:hover {
+      background-color: #2980b9;
+    }
+       button#copyBtn2 {
+      margin-bottom: 15px;
+      padding: 10px 15px;
+      font-size: 15px;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    button#copyBtn2:hover {
+      background-color: #2980b9;
+    }
+
+    .inputs-wrapper {
+      overflow-y: auto;
+      max-height: 450px;
+      padding-right: 8px;
+    }
+    @media (max-width: 960px) {
+      .container {
+        flex-direction: column;
+      }
+      .section {
+        min-width: auto;
+        width: 100%;
+      }
+      #result, #preview {
+        min-height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h2>디알 매크로 생성기</h2>
+<div class="subtitle">장면 열기/닫기</div>
+
+
+  <div class="container">
+    <!-- 입력창 -->
+    <div class="section">
+      <h3>입력창</h3>
+      <div class="inputs-wrapper">
+        <label for="color1">그라데이션 1</label>
+        <input type="color" id="color1" value="#35bdf8" style="vertical-align: middle; width:40px; border:none; padding:0;">
+        <input type="text" id="color1_text" value="#35bdf8" maxlength="7" style="width:80px; font-family: monospace; margin-left: 8px;">
+
+
+        <label for="gradPercent1">퍼센트</label>
+        <input type="range" id="gradPercent1" min="0" max="100" value="30" />
+        <span id="gradPercent1_val">30%</span>
+
+        <label for="color2">그라데이션 2</label>
+        <input type="color" id="color2" value="#d6f3ff" style="vertical-align: middle; width:40px; border:none; padding:0;">
+        <input type="text" id="color2_text" value="#d6f3ff" maxlength="7" style="width:80px; font-family: monospace; margin-left: 8px;">
+
+        <label for="gradPercent2">퍼센트</label>
+        <input type="range" id="gradPercent2" min="0" max="100" value="70" />
+        <span id="gradPercent2_val">70%</span>
+
+        <label for="textColor">글자 색상</label>
+        <input type="color" id="textColor" value="#315f7c" style="vertical-align: middle; width:40px; border:none; padding:0;">
+        <input type="text" id="textColor_text" value="#315f7c" maxlength="7" style="width:80px; font-family: monospace; margin-left: 8px;">
+
+        <label for="borderColor">테두리 색상</label>
+        <input type="color" id="borderColor" value="#35bdf8" style="vertical-align: middle; width:40px; border:none; padding:0;">
+        <input type="text" id="borderColor_text" value="#35bdf8" maxlength="7" style="width:80px; font-family: monospace; margin-left: 8px;">
+
+        <label for="sceneTableName">장면표 이름</label>
+        <input type="text" id="sceneTableName" placeholder="예: 사실은 무서운 현대 일본" />
+        <div style="font-size:12px; color:#666; margin-bottom:12px;">
+          Roll20에서 사용하는 장면표 이름을 그대로 넣어주세요. 시트 내장 장면표를 사용하신다면 생성된 CSS에서 장면표 부분은 지우고 사용해주세요.
+        </div>
+      </div>
+    </div>
+
+    <!-- 실시간 미리보기 -->
+    <div class="section">
+      <h3>실시간 미리보기</h3>
+      <div id="preview"></div>
+    </div>
+
+    <!-- 생성 코드 -->
+    <div class="section">
+      <h3>장면 열기 CSS</h3>
+      <button id="copyBtn">코드 복사</button>
+      <pre id="result"></pre>
+      
+          <h3>장면 닫기 CSS</h3>
+      <button id="copyBtn2">코드 복사</button>
+      <pre id="result2"></pre>
+
+    </div>
+  </div>
+
+<script>
+  // 요소들 변수로 잡기
+  const color1Picker = document.getElementById('color1');
+  const color1Text = document.getElementById('color1_text');
+  const color2Picker = document.getElementById('color2');
+  const color2Text = document.getElementById('color2_text');
+  const textColorPicker = document.getElementById('textColor');
+  const textColorText = document.getElementById('textColor_text');
+  const borderColorPicker = document.getElementById('borderColor');
+  const borderColorText = document.getElementById('borderColor_text');
+  const sceneTableNameInput = document.getElementById('sceneTableName');
+  const resultPre = document.getElementById('result');
+  const previewDiv = document.getElementById('preview');
+  const copyBtn = document.getElementById('copyBtn');
+  const copyBtn2 = document.getElementById('copyBtn2');
+const result2Pre = document.getElementById('result2');
+
+
+  // HEX 색상 형식 검사 함수
+  function isValidHex(color) {
+    return /^#[0-9a-fA-F]{6}$/.test(color);
+  }
+
+  // 입력값 동기화 (컬러피커와 텍스트 입력)
+  function syncColorInput(picker, textInput) {
+    picker.addEventListener('input', () => {
+      textInput.value = picker.value;
+      generateTemplate();
+    });
+    textInput.addEventListener('input', () => {
+      if (isValidHex(textInput.value)) {
+        picker.value = textInput.value;
+        generateTemplate();
+      }
+    });
+  }
+
+  syncColorInput(color1Picker, color1Text);
+  syncColorInput(color2Picker, color2Text);
+  syncColorInput(textColorPicker, textColorText);
+  syncColorInput(borderColorPicker, borderColorText);
+
+  const gradPercent1Slider = document.getElementById('gradPercent1');
+  const gradPercent2Slider = document.getElementById('gradPercent2');
+  const gradPercent1Val = document.getElementById('gradPercent1_val');
+  const gradPercent2Val = document.getElementById('gradPercent2_val');
+
+  function updateGradPercentDisplay() {
+    gradPercent1Val.textContent = gradPercent1Slider.value + '%';
+    gradPercent2Val.textContent = gradPercent2Slider.value + '%';
+  }
+
+  gradPercent1Slider.addEventListener('input', () => {
+    updateGradPercentDisplay();
+    generateTemplate();
+  });
+  gradPercent2Slider.addEventListener('input', () => {
+    updateGradPercentDisplay();
+    generateTemplate();
+  });
+
+  updateGradPercentDisplay();
+
+  // 나머지 텍스트 입력 이벤트
+  sceneTableNameInput.addEventListener('input', generateTemplate);
+
+  // 매크로 및 미리보기 생성 함수
+  function generateTemplate() {
+    const gradPercent1 = gradPercent1Slider.value;
+    const gradPercent2 = gradPercent2Slider.value;
+
+    const gradColor1 = isValidHex(color1Picker.value) ? color1Picker.value : '#000000';
+    const gradColor2 = isValidHex(color2Picker.value) ? color2Picker.value : '#000000';
+    const textColor = isValidHex(textColorPicker.value) ? textColorPicker.value : '#000000';
+    const borderColor = isValidHex(borderColorPicker.value) ? borderColorPicker.value : '#000000';
+    const sceneTableName = sceneTableNameInput.value.trim() || '사실은 무서운 현대 일본';
+
+    // 매크로 텍스트 생성
+    const macro = `[SCENE OPEN](#" style="text-decoration:none; display:block; padding:16px 14px; font-size:16px; font-weight:bold; text-align:center; color:#ffffff; font-family: 'Georgia', serif; margin-bottom:6px; background-image: linear-gradient(135deg, ${gradColor1} ${gradPercent1}%, ${gradColor2} ${gradPercent2}% )[?{사이클} 사이클 ?{순서}번째 장면](#" style="text-decoration:none; display:block; padding:6px 14px 0 14px; font-size:11px; color:${textColor}; background:#fff; border-left:1px solid ${borderColor}; border-right:1px solid ${borderColor}; border-top:1px solid ${borderColor}; border-top-left-radius:15px; border-top-right-radius:15px; font-family: 'Georgia', serif; text-align:center; margin-bottom:0; border-bottom:none)[?{이름}](#" style="text-decoration:none; display:block; padding:2px 14px 8px 14px; font-size:13px; font-weight:bold; color:${textColor}; background:#fff; border-left:1px solid ${borderColor}; border-right:1px solid ${borderColor}; font-family: 'Georgia', serif; text-align:center; margin-bottom:0; border-top:none; border-bottom:none)[등장인물: ?{등장인물}](#" style="text-decoration:none; display:block; padding:4px 14px; margin:0 auto 6px auto; font-size:12px; color:${textColor}; background:#fff; border-left:1px solid ${borderColor}; border-right:1px solid ${borderColor}; border-bottom:1px solid ${borderColor}; border-bottom-left-radius:15px; border-bottom-right-radius:15px; font-family: 'Georgia', serif; text-align:center; margin-bottom:6px; border-top:none)[장면표: [[1t[${sceneTableName}]]]](#" style="text-decoration:none; display:block; padding:14px 16px; font-size:13px; color:${textColor}; background:#fff; border:2px dashed ${borderColor}; font-family: 'Georgia', serif; line-height:1.5; text-align: justify; margin-bottom:6px;)`;
+    
+      const macro2 = `[SCENE CLOSE](#" style="text-decoration:none; display:block; padding:16px 14px; font-size:16px; font-weight:bold; text-align:center; color:#ffffff; font-family: 'Georgia', serif; margin-bottom:6px; background-image: linear-gradient(135deg, ${gradColor1} ${gradPercent1}%, ${gradColor2} ${gradPercent2}% )`;
+
+    resultPre.textContent = macro;
+    result2Pre.textContent = macro2;
+
+
+    // 미리보기 HTML 생성
+    const previewHTML = `
+<a href="#" style="text-decoration:none; display:block; padding:16px 14px; font-size:16px; font-weight:bold; text-align:center; color:#ffffff; font-family: 'Georgia', serif; margin-bottom:6px; background-image: linear-gradient(135deg, ${gradColor1} ${gradPercent1}%, ${gradColor2} ${gradPercent2}%);">SCENE OPEN</a><a href="#" style="text-decoration:none; display:block; padding:6px 14px 0 14px; font-size:11px; color:${textColor}; background:#fff; border-left:1px solid ${borderColor}; border-right:1px solid ${borderColor}; border-top:1px solid ${borderColor}; border-top-left-radius:15px; border-top-right-radius:15px; font-family: 'Georgia', serif; text-align:center; margin-bottom:0; border-bottom:none;">n 사이클 m번째 장면</a><a href="#" style="text-decoration:none; display:block; padding:2px 14px 8px 14px; font-size:13px; font-weight:bold; color:${textColor}; background:#fff; border-left:1px solid ${borderColor}; border-right:1px solid ${borderColor}; font-family: 'Georgia', serif; text-align:center; margin-bottom:0; border-top:none; border-bottom:none;">캐릭터 이름</a><a href="#" style="text-decoration:none; display:block; padding:4px 14px; margin:0 auto 6px auto; font-size:12px; color:${textColor}; background:#fff; border-left:1px solid ${borderColor}; border-right:1px solid ${borderColor}; border-bottom:1px solid ${borderColor}; border-bottom-left-radius:15px; border-bottom-right-radius:15px; font-family: 'Georgia', serif; text-align:center; margin-bottom:6px; border-top:none;">등장인물: </a><a href="#" style="text-decoration:none; display:block; padding:14px 16px; font-size:13px; color:${textColor}; background:#fff; border:2px dashed ${borderColor}; font-family: 'Georgia', serif; line-height:1.5; text-align: justify; margin-bottom:6px;">장면표: ${sceneTableName}</a><a href="#" style="text-decoration:none; display:block; padding:16px 14px; font-size:16px; font-weight:bold; text-align:center; color:#ffffff; font-family: 'Georgia', serif; margin-bottom:6px; background-image: linear-gradient(135deg, ${gradColor1} ${gradPercent1}%, ${gradColor2} ${gradPercent2}%);">SCENE CLOSE</a>
+    `;
+
+    previewDiv.innerHTML = previewHTML;
+  }
+
+  generateTemplate();
+
+  // 복사 버튼
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(resultPre.textContent)
+      .then(() => alert('코드가 복사되었습니다!'))
+      .catch(() => alert('복사에 실패했습니다.'));
+  });
+  
+  copyBtn2.addEventListener('click', () => {
+  navigator.clipboard.writeText(result2Pre.textContent)
+    .then(() => alert('코드가 복사되었습니다!'))
+    .catch(() => alert('복사에 실패했습니다.'));
+});
+</script>
+
+</body>
+</html>
