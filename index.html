@@ -2,216 +2,127 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>롤20 CSS 스킬 코드 생성기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>디알 매크로 생성기 모음</title>
   <style>
-  body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    max-width: 1100px;
-    margin: auto;
-    background: #f9f9f9;
-  }
-  .container {
-    display: flex;
-    gap: 20px;
-  }
-  .section {
-    flex: 1 1 33%;
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    padding: 20px;
-  }
-  label {
-    display: inline-block;
-    width: 120px;
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
-  input[type=text], textarea {
-    width: 100%;
-    padding: 6px 8px;
-    box-sizing: border-box;
-    font-family: monospace;
-    margin-bottom: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border-color 0.2s ease;
-  }
-  input[type=text]:focus, textarea:focus {
-    outline: none;
-    border-color: #3498db;
-    background: #f0f8ff;
-  }
-  textarea {
-    resize: vertical;
-    height: 80px;
-  }
-  #result, #preview {
-    flex-grow: 1;
-    overflow-y: auto;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    background: #fafafa;
-    min-height: 400px;
-    padding: 15px;
-    white-space: pre-wrap;
-    font-family: monospace;
-  }
-#preview {
-  display: inline-block;        /* 칸 너비가 내용에 맞게 늘어남 */
-  max-width: 100%;              /* 부모 너비 넘지 않음 */
-  white-space: pre-wrap;        /* 사용자 줄바꿈 유지 + 필요시 줄바꿈 */
-  word-break: normal;           /* 강제 줄바꿈 안함 */
-  overflow-wrap: normal;        /* 단어 내 강제 줄바꿈 없음 */
-  padding: 15px;
-  font-family: Georgia, serif;
-  border: 1px solid #ccc;
-  background: #fff;
-  min-height: 400px;
-  overflow-y: auto;
+body {
+  margin: 0;
+  font-family: 'Pretendard', 'Segoe UI', sans-serif;
+  background-color: #121417;
+  color: #f0f9ff;
+  padding: 40px 20px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #fed6e3;
+  text-shadow: 0 0 8px rgba(56, 193, 215, 0.7);
+}
+
+.grid {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.card {
+  border-radius: 16px;
+  padding: 20px 24px 24px 24px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(29, 169, 183, 0.6);
+}
+
+.card-skill {
+  background: linear-gradient(135deg, #35bdf8, #ff6666);
+}
+
+.card-scene {
+  background: linear-gradient(135deg, #fa709a, #fee140 );
+}
+
+.card-roll {
+  background: linear-gradient(135deg, #fee140, #43e97b);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(29, 169, 183, 0.9);
+  background: #25c1d3;
+}
+
+.card-skill:hover {
+  background: linear-gradient(135deg, #50d9ff, #ff8888);
+}
+.card-scene:hover {
+  background: linear-gradient(135deg, #ff85b3, #fff685);
+}
+.card-roll:hover {
+  background: linear-gradient(135deg, #fff685, #6df9a7);
 }
 
 
-  button#copyBtn {
-    margin-bottom: 15px;
-    padding: 10px 15px;
-    font-size: 15px;
-    border: none;
-    background-color: #3498db;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    user-select: none;
-  }
-  button#copyBtn:hover {
-    background-color: #2980b9;
-  }
-  h3 {
-    margin-bottom: 10px;
-  }
-  .inputs-wrapper {
-    overflow-y: auto;
-    max-height: 450px;
-    padding-right: 8px;
-  }
+.card h2 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin: 4px 0 8px 0;
+  text-shadow: 0 0 5px rgba(224, 247, 250, 0.8);
+}
 
-  /* 반응형 (폭 좁아지면 세로 배치) */
-  @media (max-width: 960px) {
-    .container {
-      flex-direction: column;
-    }
-    .section {
-      min-width: auto;
-      width: 100%;
-    }
-    #result, #preview {
-      min-height: 300px;
-    }
-  }
+.card p {
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+footer {
+  text-align: center;
+  margin-top: 60px;
+  font-size: 0.85rem;
+  color: #fed6e3;
+}
+
+footer a {
+  color: #a8edea;
+  text-decoration: none;
+  font-weight: 600;
+}
+
   </style>
 </head>
 <body>
+  <h1>‎•┈✦ ˚₊‧ 디알 롤20 매크로 생성기 ‧₊˚ ✦┈•</h1>
 
-  <h2>롤20 CSS 스킬 코드 생성기</h2>
+  <div class="grid">
+   <a class="card card-skill" href="skill_macro.html" target="_blank" rel="noopener noreferrer">
+  <h2>스킬 매크로</h2>
+  <p>색상, 이름, 스킬 이름 등을 입력하여 스킬 매크로</p>
+</a>
 
-  <div class="container">
-    <!-- 입력창 -->
-    <div class="section">
-      <h3>입력창</h3>
-      <div class="inputs-wrapper">
-        <label for="color1">첫 번째 색상</label>
-        <input type="text" id="color1" placeholder="#3498db" />
+<a class="card card-scene" href="scene_macro.html" target="_blank" rel="noopener noreferrer">
+  <h2>장면 열기/닫기 매크로</h2>
+  <p>장면제 룰에서 사용 가능한 장면 매크로 (기본 세팅: 인세인)</p>
+</a>
 
-        <label for="color2">두 번째 색상</label>
-        <input type="text" id="color2" placeholder="#e74c3c" />
+<a class="card card-roll" href="sheet.html" target="_blank" rel="noopener noreferrer">
+  <h2>의식 시트</h2>
+  <p>인세인에서 사용할 수 있는 심플한 의식 시트</p>
+</a>
 
-        <label for="codename">코드네임</label>
-        <input type="text" id="codename" placeholder="코드네임 입력" />
-
-        <label for="name">이름</label>
-        <input type="text" id="name" placeholder="이름 입력" />
-
-        <label for="skillname">스킬명</label>
-        <input type="text" id="skillname" placeholder="스킬명 입력" />
-
-        <label for="target">대상</label>
-        <input type="text" id="target" placeholder="대상 입력" />
-
-        <label for="range">사정</label>
-        <input type="text" id="range" placeholder="사정 입력" />
-
-        <label for="description">스킬설명</label>
-        <textarea id="description" placeholder="스킬설명 입력"></textarea>
-      </div>
-    </div>
-
-  <!-- 실시간 미리보기 -->
-  <div class="section">
-    <h3>실시간 미리보기</h3>
-    <div id="preview"></div>
   </div>
 
-  <!-- 생성 코드 -->
-  <div class="section">
-    <h3>생성된 코드</h3>
-    <button id="copyBtn">코드 복사</button>
-    <pre id="result"></pre>
-  </div>
-</div>
+<footer>
+  <p>© 2025 디알. All rights reserved.</p>
+  <p>
+    Twitter: <a href="https://twitter.com/dearestBLU3" target="_blank" rel="noopener noreferrer">@dearestBLU3</a>
+  </p>
+</footer>
 
-  <script>
-    const inputs = [
-      'color1', 'color2', 'codename', 'name', 'skillname', 'target', 'range', 'description'
-    ];
-
-    function generateTemplate() {
-      const color1 = document.getElementById('color1').value.trim() || '#000';
-      const color2 = document.getElementById('color2').value.trim() || '#000';
-      const codename = document.getElementById('codename').value.trim() || '코드네임';
-      const name = document.getElementById('name').value.trim() || '이름';
-      const skillname = document.getElementById('skillname').value.trim() || '스킬명';
-      const target = document.getElementById('target').value.trim() || '대상';
-      const range = document.getElementById('range').value.trim() || '사정';
-      const description = document.getElementById('description').value.trim() || '스킬설명';
-
-      // 롤20용 출력
-      const template = `
-[✧✦ SKILL ✦✧](#" style="text-decoration:none; display:block; padding:18px 15px; font-size:17px; font-weight:bold; text-align:center; color:${color1}; background:#fff; border:3px double ${color1}; font-family: 'Georgia', serif;)[₊˚⊹${codename}⊹⁠˚₊](#" style="text-decoration:none; display:block; padding:10px 15px 0px 15px; font-size:10px; font-weight:normal; color:${color2}; background:#fff; border-left:1px solid ${color1}; border-right:1px solid ${color1}; font-family: 'Georgia', serif; text-align:center;)[${name}](#" style="text-decoration:none; display:block; padding:2px 15px 10px 15px; font-size:13px; font-weight:bold; color:${color1}; background:#fff; border-left:1px solid ${color1}; border-right:1px solid ${color1}; font-family: 'Georgia', serif; text-align:center;)[•───⋅☾ ${skillname} ☽⋅───•](#" style="text-decoration:none; display:block; padding:15px 15px; font-size:15px; font-weight:bold; color:#fff; background:${color1}; font-family: 'Georgia', serif; text-align:center;)[➤ 대상: ${target} | 사정: ${range}](#" style="text-decoration:none; display:block; padding:11px 15px; font-size:11px; color:${color2}; background:#fff; border-left:1px solid ${color1}; border-right:1px solid ${color1}; font-family: 'Georgia', serif; text-align:center; border-top:none; border-bottom:none;)[“${description}”](#" style="text-decoration:none; display:block; padding:18px 18px; font-size:13px; color:${color1}; background:#fff; border:3px solid ${color1}; border-top:1px solid ${color1}; border-left:10px solid ${color1}; font-family: 'Georgia', serif; line-height:1.5; text-align: justify;)
-      `.trim();
-
-      document.getElementById('result').textContent = template;
-
-      // 미리보기는 기존 방식으로 유지
-      const previewHTML = `
-<a href="#" style="text-decoration:none; display:block; padding:18px 15px; font-size:17px; font-weight:bold; text-align:center; color:${color1}; background:#fff; border:3px double ${color1}; font-family: 'Georgia', serif;">✧✦ SKILL ✦✧</a><a href="#" style="text-decoration:none; display:block; padding:10px 15px 0px 15px; font-size:10px; font-weight:normal; color:${color2}; background:#fff; border-left:1px solid ${color1}; border-right:1px solid ${color1}; font-family: 'Georgia', serif; text-align:center;">₊˚⊹${codename}⊹⁠˚₊</a><a href="#" style="text-decoration:none; display:block; padding:2px 15px 10px 15px; font-size:13px; font-weight:bold; color:${color1}; background:#fff; border-left:1px solid ${color1}; border-right:1px solid ${color1}; font-family: 'Georgia', serif; text-align:center;">${name}</a><a href="#" style="text-decoration:none; display:block; padding:15px 15px; font-size:15px; font-weight:bold; color:#fff; background:${color1}; font-family: 'Georgia', serif; text-align:center;">•───⋅☾ ${skillname} ☽⋅───•</a><a href="#" style="text-decoration:none; display:block; padding:11px 15px; font-size:11px; color:${color2}; background:#fff; border-left:1px solid ${color1}; border-right:1px solid ${color1}; font-family: 'Georgia', serif; text-align:center; border-top:none; border-bottom:none;">➤ 대상: ${target} | 사정: ${range}</a><a href="#" style="text-decoration:none; display:block; padding:18px 18px; font-size:13px; color:${color1}; background:#fff; border:3px solid ${color1}; border-top:1px solid ${color1}; border-left:10px solid ${color1}; font-family: 'Georgia', serif; line-height:1.5; text-align: justify;">“${description}”</a>
-      `;
-
-      document.getElementById('preview').innerHTML = previewHTML;
-    }
-
-    // 입력 감지
-    inputs.forEach(id => {
-      document.getElementById(id).addEventListener('input', generateTemplate);
-    });
-
-    // 복사 버튼 이벤트
-    document.getElementById('copyBtn').addEventListener('click', () => {
-      const code = document.getElementById('result').textContent;
-      navigator.clipboard.writeText(code).then(() => {
-        alert('코드가 클립보드에 복사되었습니다!');
-      }, () => {
-        alert('복사에 실패했습니다.');
-      });
-    });
-
-    // 초기 생성
-    generateTemplate();
-  </script>
 
 </body>
 </html>
